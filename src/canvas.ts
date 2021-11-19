@@ -21,7 +21,9 @@ export default class Canvas {
     element.appendChild(this.app.view);
     //this.layout1 = new Layout(this.app.ticker, 500, 200, 400, 150, 'Scrabble Typescript', 300);
 
-    const letras = [
+
+    // arreglo de letras
+    let letras = [
       {letra: 'A', puntaje: 1, cantidad: 12},
       {letra: 'B', puntaje: 3, cantidad: 2},
       {letra: 'C', puntaje: 3, cantidad: 12},
@@ -54,11 +56,46 @@ export default class Canvas {
 
     ];
 
-    const palabra = [];
+//arreglo de palabra
 
-    palabra.push(letras[0],letras[1]);
-    letras.splice(0, 2);
-    console.log(palabra);
+    let palabra = [];
+    let score = [];
+
+    score.push(
+      letras.map(x => x.puntaje)[2],
+      letras.map(x => x.puntaje)[0],
+      letras.map(x => x.puntaje)[20],
+      letras.map(x => x.puntaje)[16]);
+
+
+    function sum(...args: number[]) {
+      let acumulado = 0;
+      args.forEach(arg => {
+        acumulado += arg;
+      });
+      console.log("El puntaje es: " + acumulado)
+    }
+sum(letras.map(x => x.puntaje)[2],
+  letras.map(x => x.puntaje)[0],
+  letras.map(x => x.puntaje)[20],
+  letras.map(x => x.puntaje)[16]);
+
+    palabra.push(
+      letras.map(x => x.letra)[2],
+      letras.map(x => x.letra)[0],
+      letras.map(x => x.letra)[20],
+      letras.map(x => x.letra)[16]);
+    palabra.join();
+    console.log(palabra.join(''));
+
+    for (var i = 0; i < palabra.length; i++) {
+      let letrasLength = letras.length;
+      for (var j = 0; j < letrasLength; j++) {
+        if (palabra[i] == letras.map(x => x.letra)[j]) {
+          letras = letras.slice(0, j).concat(letras.slice(j + 1, letrasLength));
+        }
+      }
+    }
     console.log(letras);
     //letras.forEach(element => console.log(element));
 
